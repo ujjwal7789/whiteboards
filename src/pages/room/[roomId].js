@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Canvas from '../../components/Canvas';
 
-import '../../../styles/globals.css'
+// import '../../../styles/globals.css'
 const API_URL = 'http://localhost:5000';
 
 export default function Room() {

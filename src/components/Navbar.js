@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
-import '../../styles/globals.css'
+// import '../../styles/globals.css'
 
 const API_URL = 'http://localhost:5000';
 

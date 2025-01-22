@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, use } from 'react';
 import { io } from 'socket.io-client';
-import '../../styles/globals.css'
+// import '../../styles/globals.css'
 const socket = io('http://localhost:5000');
 
 export default function Canvas({ roomID, load, user }) {
