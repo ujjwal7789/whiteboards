@@ -57,7 +57,7 @@ Push to the branch:
 
 Open a pull request.
 
-### Acknowledgements
+## Acknowledgements
 
 - Thanks to Vercel for providing free hosting!
 - Inspired by the creativity and collaboration of online tools.
