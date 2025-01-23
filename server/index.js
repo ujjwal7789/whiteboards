@@ -3,6 +3,8 @@ const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 const { Pool } = require("pg");
+const dotenv = require('dotenv');
+dotenv.config();
 
 
 const checkUniqueUsername = async (username) => {
@@ -27,7 +29,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'https://whiteboards-three.vercel.app/',
     methods: ['GET', 'POST'],
   },
 });
@@ -72,9 +74,14 @@ server.listen(5000, () => {
 
 
 
-const pool = require('./db');
+// const pool = require('./db');
 
-
+const pool = new Pool({
+  connectionString : process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 app.post('/save-session', async (req, res) => {
   const { roomId, data, username } = req.body;

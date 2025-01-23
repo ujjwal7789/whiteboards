@@ -152,7 +152,7 @@ export default function Canvas({ roomID, load, user }) {
     const canvas = canvasRef.current;
     const data = canvas.toDataURL(); // Get canvas image as a base64 string
     try {
-      const response = await fetch('http://localhost:5000/save-session', {
+      const response = await fetch('https://whiteboard-production-803e.up.railway.app/save-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ roomId: roomID, data, username: user }),
@@ -170,7 +170,7 @@ export default function Canvas({ roomID, load, user }) {
 
   const loadSession = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/load-session/${roomID}`);
+      const response = await fetch(`https://whiteboard-production-803e.up.railway.app/load-session/${roomID}`);
       if (response.ok) {
         const { data } = await response.json();
         const img = new Image();
