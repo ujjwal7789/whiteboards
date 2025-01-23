@@ -15,6 +15,12 @@ Access the live app here : [Collaborative Whiteboard](https://whiteboards-three.
 
 ## Screenshots
 
+   ![](images/mainscreen.png)
+   ![](images/loginform.png)
+   ![](images/signupform.png)
+   ![](images/drawing.png)
+     
+
 
 
 ## Technologies Used
