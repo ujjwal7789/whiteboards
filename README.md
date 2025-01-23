@@ -25,7 +25,7 @@ Access the live app here : [Collaborative Whiteboard](https://whiteboards-three.
 
 ## Technologies Used
 - Frontend: Next.js, React
-- Backend: Supabase
+- Backend: Render
 - Deployment: Vercel
 - Styling: Tailwind CSS
 
