@@ -1,49 +1,36 @@
-import React, { useRef, useEffect, useState, use } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-// import '../../styles/globals.css'
+
+// Initialize the socket connection
 const socket = io('https://whiteboards-ac2q.onrender.com');
 
+/**
+ * Canvas Component - A collaborative whiteboard that allows multiple users to draw on the same canvas in real-time.
+ * 
+ * Props:
+ * @param {string} roomID - Unique identifier for the collaboration room.
+ * @param {boolean} load - Indicates whether to load a saved session.
+ * @param {string} user - Username of the current user.
+ */
 export default function Canvas({ roomID, load, user }) {
+  // Refs for the canvas and its context
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
-  const drawing = useRef(false);
+  const drawing = useRef(false); // Ref to track if the user is currently drawing
+
+  // State for managing color and component mount status
   const [color, setColor] = useState('black');
   const [isMounted, setIsMounted] = useState(false);
 
+  // Set the mounted state when the component loads
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // useEffect(() => {
-    
-  //   if (canvasRef.current) {
-  //     const canvas = canvasRef.current;
-  //     canvas.width = window.innerWidth;
-  //     canvas.height = window.innerHeight;
-  //     const ctx = canvas.getContext('2d');
-  //     ctx.lineCap = 'round';
-  //     ctx.lineWidth = 3;
-  //     ctx.strokeStyle = 'black';
-  //     ctxRef.current = ctx;
-  //   }
-    
-  //   socket.emit('joinRoom', roomID);
-    
-  //   socket.on('draw', ({ x0, y0, x1, y1, color }) => {
-  //     const ctx = ctxRef.current;
-  //     if (ctx) {
-  //       ctx.strokeStyle = color;
-  //       ctx.beginPath();
-  //       ctx.moveTo(x0, y0);
-  //       ctx.lineTo(x1, y1);
-  //       ctx.stroke();
-  //     }
-  //   });
-  //   return () => socket.off('draw');
-  // }, [roomID]);
-
+  // Set up the canvas and socket listeners
   useEffect(() => {
     if (canvasRef.current) {
+      // Initialize the canvas size and context
       const canvas = canvasRef.current;
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -53,10 +40,11 @@ export default function Canvas({ roomID, load, user }) {
       ctx.strokeStyle = 'black';
       ctxRef.current = ctx;
     }
-  
+
+    // Join the specified room via socket
     socket.emit('joinRoom', roomID);
-  
-    // Handle canvas initialization
+
+    // Receive and render the initial canvas state from the server
     socket.on('initializeCanvas', (canvasState) => {
       const ctx = ctxRef.current;
       if (ctx && canvasState) {
@@ -69,8 +57,8 @@ export default function Canvas({ roomID, load, user }) {
         });
       }
     });
-  
-    // Handle drawing updates
+
+    // Listen for drawing updates from other users
     socket.on('draw', ({ x0, y0, x1, y1, color }) => {
       const ctx = ctxRef.current;
       if (ctx) {
@@ -81,13 +69,15 @@ export default function Canvas({ roomID, load, user }) {
         ctx.stroke();
       }
     });
-  
+
+    // Cleanup socket listeners on component unmount
     return () => {
       socket.off('initializeCanvas');
       socket.off('draw');
     };
   }, [roomID]);
 
+  // Helper function to get mouse position relative to the canvas
   const getMousePosition = (e) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
@@ -96,6 +86,7 @@ export default function Canvas({ roomID, load, user }) {
     return { x, y };
   };
 
+  // Event handlers for drawing actions
   const handleMouseDown = (e) => {
     drawing.current = true;
     const { x, y } = getMousePosition(e);
@@ -112,11 +103,14 @@ export default function Canvas({ roomID, load, user }) {
     const x1 = x;
     const y1 = y;
 
+    // Draw on the canvas
     ctx.lineTo(x1, y1);
     ctx.stroke();
 
+    // Emit the drawing event to other users
     socket.emit('draw', { roomId: roomID, x0, y0, x1, y1, color: ctx.strokeStyle });
 
+    // Save the last position
     ctx.lastX = x1;
     ctx.lastY = y1;
   };
@@ -127,11 +121,13 @@ export default function Canvas({ roomID, load, user }) {
     delete ctxRef.current.lastY;
   };
 
+  // Clear the canvas and notify other users
   const handleClear = () => {
     ctxRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-    socket.emit('clearCanvas', { roomId: roomID }); // Notify the server to clear the canvas for all users in the room
+    socket.emit('clearCanvas', { roomId: roomID });
   };
 
+  // Listen for canvas clear events from the server
   useEffect(() => {
     socket.on('clearCanvas', () => {
       const ctx = ctxRef.current;
@@ -139,18 +135,20 @@ export default function Canvas({ roomID, load, user }) {
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
       }
     });
-  
+
     return () => socket.off('clearCanvas');
   }, []);
 
+  // Handle color change
   const handleColorChange = (e) => {
     setColor(e.target.value);
     ctxRef.current.strokeStyle = e.target.value;
   };
 
+  // Save the current canvas session to the server
   const saveSession = async () => {
     const canvas = canvasRef.current;
-    const data = canvas.toDataURL(); // Get canvas image as a base64 string
+    const data = canvas.toDataURL();
     try {
       const response = await fetch('https://whiteboards-ac2q.onrender.com/save-session', {
         method: 'POST',
@@ -168,6 +166,7 @@ export default function Canvas({ roomID, load, user }) {
     }
   };
 
+  // Load a saved canvas session from the server
   const loadSession = async () => {
     try {
       const response = await fetch(`https://whiteboards-ac2q.onrender.com/load-session/${roomID}`);
@@ -191,9 +190,10 @@ export default function Canvas({ roomID, load, user }) {
     }
   };
 
+  // Automatically load a saved session if the load prop is true
   useEffect(() => {
     if (load) loadSession();
-  });
+  }, [load]);
 
   return (
     <div className="relative w-full h-full bg-gray-500">
@@ -203,7 +203,6 @@ export default function Canvas({ roomID, load, user }) {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         className="w-5/6 h-5/6 mx-auto bg-white"
-        // style={{ cursor: 'url(/pencil-cursor.png) 0 0, auto' }}
       />
       <div className="absolute bottom-4 left-4 flex space-x-4">
         <button
@@ -219,10 +218,10 @@ export default function Canvas({ roomID, load, user }) {
           Load Session
         </button>
         <button
-            onClick={handleClear}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700"
+          onClick={handleClear}
+          className="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700"
         >
-            Clear Board
+          Clear Board
         </button>
         {isMounted && (
           <input

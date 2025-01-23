@@ -6,24 +6,23 @@ const { Pool } = require("pg");
 const dotenv = require('dotenv');
 dotenv.config();
 
-
+// Function to check if a username is unique
 const checkUniqueUsername = async (username) => {
   try {
     const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
     if (result.rows.length > 0) {
-      return 1;
+      return 1; // Username exists
     }
     return 0; 
   } catch (error) {
     console.error(error);
-    return -1;
+    return -1; // Error occurred
   }
-}
+};
 
 const app = express();
 app.use(cors());
-
-app.use(express.json({limit: '50mb'}));
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 const server = http.createServer(app);
@@ -34,7 +33,7 @@ const io = new Server(server, {
   },
 });
 
-// Store canvas state per room
+// Store canvas state for each room
 const roomCanvasStates = {};
 
 io.on('connection', (socket) => {
@@ -72,17 +71,14 @@ server.listen(5000, () => {
   console.log('Server running on http://localhost:5000');
 });
 
-
-
-// const pool = require('./db');
-
 const pool = new Pool({
-  connectionString : process.env.DATABASE_URL,
+  connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 });
 
+// Save canvas session
 app.post('/save-session', async (req, res) => {
   const { roomId, data, username } = req.body;
 
@@ -100,6 +96,7 @@ app.post('/save-session', async (req, res) => {
   }
 });
 
+// Load the latest session for a specific room
 app.get('/load-session/:roomId', async (req, res) => {
   const { roomId } = req.params;
 
@@ -119,6 +116,7 @@ app.get('/load-session/:roomId', async (req, res) => {
   }
 });
 
+// Load sessions by username
 app.get('/load-user-session', async (req, res) => {
   const { username } = req.query;
 
@@ -137,8 +135,10 @@ app.get('/load-user-session', async (req, res) => {
     res.status(500).send('Error loading session');
   }
 });
+
+// Create a new user
 app.post('/create-user', async (req, res) => {
-  const {username, password} = req.body;
+  const { username, password } = req.body;
   const unique = await checkUniqueUsername(username);
   if (unique === 1) {
     res.status(400).send('Username already exists');
@@ -157,6 +157,7 @@ app.post('/create-user', async (req, res) => {
   }
 });
 
+// User login
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
