@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
 // Initialize the socket connection
@@ -167,7 +167,7 @@ export default function Canvas({ roomID, load, user }) {
   };
 
   // Load a saved canvas session from the server
-  const loadSession = useCallback(async () => {
+  const loadSession = async () => {
     try {
       const response = await fetch(`https://whiteboards-ac2q.onrender.com/load-session/${roomID}`);
       if (response.ok) {
@@ -188,14 +188,12 @@ export default function Canvas({ roomID, load, user }) {
       console.error(error);
       alert('Error loading session.');
     }
-  }, [roomID]); // Add roomID as a dependency
-  
+  };
+
   // Automatically load a saved session if the load prop is true
   useEffect(() => {
-    if (load) {
-      loadSession();
-    }
-  }, [load, loadSession]);
+    if (load) loadSession();
+  }, [load]);
 
   return (
     <div className="relative w-full h-full bg-gray-500">
