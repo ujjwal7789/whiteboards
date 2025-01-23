@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 // import '../../styles/globals.css'
 
-const API_URL = 'https://whiteboard-production-803e.up.railway.app';
+const API_URL = 'https://whiteboards-ac2q.onrender.com';
 
 
 

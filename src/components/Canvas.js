@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, use } from 'react';
 import { io } from 'socket.io-client';
 // import '../../styles/globals.css'
-const socket = io('http://localhost:5000');
+const socket = io('https://whiteboards-ac2q.onrender.com');
 
 export default function Canvas({ roomID, load, user }) {
   const canvasRef = useRef(null);
@@ -152,7 +152,7 @@ export default function Canvas({ roomID, load, user }) {
     const canvas = canvasRef.current;
     const data = canvas.toDataURL(); // Get canvas image as a base64 string
     try {
-      const response = await fetch('https://whiteboard-production-803e.up.railway.app/save-session', {
+      const response = await fetch('https://whiteboards-ac2q.onrender.com/save-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ roomId: roomID, data, username: user }),
@@ -170,7 +170,7 @@ export default function Canvas({ roomID, load, user }) {
 
   const loadSession = async () => {
     try {
-      const response = await fetch(`https://whiteboard-production-803e.up.railway.app/load-session/${roomID}`);
+      const response = await fetch(`https://whiteboards-ac2q.onrender.com/load-session/${roomID}`);
       if (response.ok) {
         const { data } = await response.json();
         const img = new Image();
