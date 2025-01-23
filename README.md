@@ -1,33 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a Collaborative Whiteboard, a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Live Demo
+
+Access the live app here : [Collaborative Whiteboard](https://whiteboards-three.vercel.app/)
+
+## Features
+- Create or join a shared whiteboard session using room ID.
+- Sketch on the whiteboard in real time.
+- Collaborate with other users by seeing their changes in real time.
+- Save and load whiteboard sessions for later use.
+- Real-time communication and synchronization of whiteboard updates across users.
+- Whiteboard session management using room ID.
+- Persistent storage of whiteboard sessions and user data.
+
+## Screenshots
+
+
+
+## Technologies Used
+- Frontend: Next.js, React
+- Backend: Supabase
+- Deployment: Vercel
+- Styling: Tailwind CSS
 
 ## Getting Started
+### Installation
 
-First, run the development server:
+1. Clone the repository
+   `git clone https://github.com/your-username/whiteboards.git`  
+   `cd whiteboards`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Install dependencies:
+   `npm install`
+
+3. Set up environment variables:
+   Create a `.env` file in the root directory and add:
+   `DATABASE_URL = your-render-database-url`
+
+4. Start the development server:
+   `npm run dev`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Contributions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Contributions are welcome. To contribute:
 
-## Learn More
+1. Fork the repository.
+2. Create a new branch:
 
-To learn more about Next.js, take a look at the following resources:
+`git checkout -b feature-name` 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Make your changes and commit:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`git commit -m "Add feature-name"`  
+
+Push to the branch:
+
+`git push origin feature-name`  
+
+Open a pull request.
+
+## Acknowledgements
+
+- Thanks to Vercel for providing free hosting!
+- Inspired by the creativity and collaboration of online tools.
+
 
 ## Deploy on Vercel
 
