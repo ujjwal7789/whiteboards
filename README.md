@@ -1,18 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a Collaborative Whiteboard, a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Live Demo
+
+Access the live app here : [Collaborative Whiteboard](https://whiteboards-three.vercel.app/)
+
+## Features
+- Create or join a shared whiteboard session using room ID.
+- Sketch on the whiteboard in real time.
+- Collaborate with other users by seeing their changes in real time.
+- Save and load whiteboard sessions for later use.
+- Real-time communication and synchronization of whiteboard updates across users.
+- Whiteboard session management using room ID.
+- Persistent storage of whiteboard sessions and user data.
+
+## Technologies Used
+- Frontend: Next.js, React
+- Backend: Supabase
+- Deployment: Vercel
+- Styling: Tailwind CSS
 
 ## Getting Started
+### Installation
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone the repository
+   `git clone https://github.com/your-username/whiteboards.git  
+   cd whiteboards`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
