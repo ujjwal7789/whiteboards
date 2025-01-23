@@ -13,6 +13,10 @@ Access the live app here : [Collaborative Whiteboard](https://whiteboards-three.
 - Whiteboard session management using room ID.
 - Persistent storage of whiteboard sessions and user data.
 
+## Screenshots
+
+
+
 ## Technologies Used
 - Frontend: Next.js, React
 - Backend: Supabase
