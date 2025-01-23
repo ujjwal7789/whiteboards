@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'https://whiteboards-three.vercel.app/',
+    origin: 'https://whiteboards-three.vercel.app',
     methods: ['GET', 'POST'],
   },
 });
