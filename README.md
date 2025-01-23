@@ -36,15 +36,24 @@ Access the live app here : [Collaborative Whiteboard](https://whiteboards-three.
    `git clone https://github.com/your-username/whiteboards.git`  
    `cd whiteboards`
 
-2. Install dependencies:
+2. Install dependencies for frontend:
    `npm install`
 
-3. Set up environment variables:
+3  Install dependencies for backend:
+   `cd server`
+   `npm install`
+   
+4. Set up environment variables:
    Create a `.env` file in the root directory and add:
    `DATABASE_URL = your-render-database-url`
 
-4. Start the development server:
+5. Change backend and frontend servers accordingly
+
+6. Start the development server for frontend:
    `npm run dev`
+
+7. Start development server for backend:
+   `node index.js`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -69,7 +78,7 @@ Open a pull request.
 
 ## Acknowledgements
 
-- Thanks to Vercel for providing free hosting!
+- Thanks to Vercel and Render for providing free hosting!
 - Inspired by the creativity and collaboration of online tools.
 
 
