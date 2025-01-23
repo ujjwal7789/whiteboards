@@ -63,45 +63,97 @@ export default function Navbar({
     setUsername('');
   };
 
-  return (
-    <nav className="bg-gray-800 text-white p-4 shadow-lg flex-row justify-between items-center">
-      <h1 className="text-xl font-bold">Collaborative Whiteboard</h1>
+  // return (
+  //   <nav className="bg-gray-800 text-white p-4 shadow-lg flex-row justify-between items-center">
+  //     <h1 className="text-xl font-bold">Collaborative Whiteboard</h1>
 
-      <div className="flex items-center space-x-4">
+  //     <div className="flex items-center space-x-4">
+  //       {isLoggedIn ? (
+  //         <div className="flex items-center space-x-2">
+  //           <span>{username}</span>
+  //           <button onClick={handleLogout} className="text-red-300">
+  //             <FaSignOutAlt />
+  //           </button>
+  //         </div>
+  //       ) : (
+  //         <button
+  //           onClick={() => setShowLoginPopup(!showLoginPopup)}
+  //           className="text-white flex items-center"
+  //         >
+  //           <FaSignInAlt />
+  //           <span className="ml-1">Login</span>
+  //         </button>
+  //       )}
+
+  //       {showLoginPopup && !isLoggedIn && (
+  //         <div className="absolute top-14 right-0 bg-white text-black p-4 shadow-lg rounded-md w-48">
+  //           <input
+  //             type="text"
+  //             placeholder="Username"
+  //             className="border p-2 mb-2 w-full"
+  //             onChange={(e) => setUsername(e.target.value)}
+  //           />
+  //           <input
+  //             type="password"
+  //             placeholder="Password"
+  //             className="border p-2 mb-2 w-full"
+  //             onChange={(e) => setPassword(e.target.value)}
+  //           />
+  //           <button
+  //             onClick={() => handleLogin(username, password)}
+  //             className="bg-blue-500 text-white p-2 w-full rounded-md"
+  //           >
+  //             Login
+  //           </button>
+  //         </div>
+  //       )}
+  //     </div>
+  //   </nav>
+  // );
+
+
+  return (
+    <nav className="bg-gradient-to-r from-blue-700 to-blue-500 text-white p-4 shadow-lg flex justify-between items-center">
+      <h1 className="text-2xl font-bold">Collaborative Whiteboard</h1>
+
+      <div className="flex items-center space-x-6">
         {isLoggedIn ? (
-          <div className="flex items-center space-x-2">
-            <span>{username}</span>
-            <button onClick={handleLogout} className="text-red-300">
-              <FaSignOutAlt />
+          <div className="flex items-center space-x-4">
+            <span className="text-white font-medium text-lg">{username}</span>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition-colors"
+            >
+              Logout
             </button>
           </div>
         ) : (
           <button
             onClick={() => setShowLoginPopup(!showLoginPopup)}
-            className="text-white flex items-center"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors"
           >
-            <FaSignInAlt />
-            <span className="ml-1">Login</span>
+            Login
           </button>
         )}
 
         {showLoginPopup && !isLoggedIn && (
-          <div className="absolute top-14 right-0 bg-white text-black p-4 shadow-lg rounded-md w-48">
+          <div className="absolute top-16 right-4 bg-white text-black p-6 shadow-lg rounded-lg w-60">
+            <h3 className="text-lg font-bold mb-2">Login</h3>
             <input
               type="text"
               placeholder="Username"
-              className="border p-2 mb-2 w-full"
+              className="border p-2 mb-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={(e) => setUsername(e.target.value)}
             />
             <input
               type="password"
               placeholder="Password"
-              className="border p-2 mb-2 w-full"
+              className="border p-2 mb-4 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={(e) => setPassword(e.target.value)}
             />
             <button
               onClick={() => handleLogin(username, password)}
-              className="bg-blue-500 text-white p-2 w-full rounded-md"
+              className="w-full bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition-colors"
             >
               Login
             </button>
@@ -111,3 +163,4 @@ export default function Navbar({
     </nav>
   );
 }
+
