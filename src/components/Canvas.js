@@ -167,7 +167,7 @@ export default function Canvas({ roomID, load, user }) {
   };
 
   // Load a saved canvas session from the server
-  const loadSession = async () => {
+  const loadSession = useCallback(async () => {
     try {
       const response = await fetch(`https://whiteboards-ac2q.onrender.com/load-session/${roomID}`);
       if (response.ok) {
@@ -188,12 +188,14 @@ export default function Canvas({ roomID, load, user }) {
       console.error(error);
       alert('Error loading session.');
     }
-  };
-
+  }, [roomID]); // Add roomID as a dependency
+  
   // Automatically load a saved session if the load prop is true
   useEffect(() => {
-    if (load) loadSession();
-  }, [load]);
+    if (load) {
+      loadSession();
+    }
+  }, [load, loadSession]);
 
   return (
     <div className="relative w-full h-full bg-gray-500">
