@@ -33,7 +33,7 @@ Access the live app here : [Collaborative Whiteboard](https://whiteboards-three.
 ### Installation
 
 1. Clone the repository
-   `git clone https://github.com/your-username/whiteboards.git`  
+   `git clone https://github.com/ujjwal7789/whiteboards.git`  
    `cd whiteboards`
 
 2. Install dependencies for frontend:
